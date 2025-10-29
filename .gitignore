@@ -24,3 +24,6 @@ Thumbs.db
 # Home Assistant
 secrets.yaml
 *.log
+
+# Old reference files
+playmetrics_appdaemon.py
