@@ -15,10 +15,10 @@ from homeassistant.helpers import config_validation as cv
 from .api import PlaymetricsApiClient, PlaymetricsApiError
 from .const import (
     CONF_FUTURE_DAYS,
-    CONF_REFRESH_HOUR,
     CONF_ROLE_ID,
+    CONF_UPDATE_INTERVAL_HOURS,
     DEFAULT_FUTURE_DAYS,
-    DEFAULT_REFRESH_HOUR,
+    DEFAULT_UPDATE_INTERVAL_HOURS,
     DOMAIN,
 )
 
@@ -30,8 +30,8 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
         vol.Required(CONF_PASSWORD): cv.string,
         vol.Required(CONF_ROLE_ID): cv.string,
         vol.Optional(CONF_FUTURE_DAYS, default=DEFAULT_FUTURE_DAYS): cv.positive_int,
-        vol.Optional(CONF_REFRESH_HOUR, default=DEFAULT_REFRESH_HOUR): vol.All(
-            cv.positive_int, vol.Range(min=0, max=23)
+        vol.Optional(CONF_UPDATE_INTERVAL_HOURS, default=DEFAULT_UPDATE_INTERVAL_HOURS): vol.All(
+            cv.positive_int, vol.Range(min=1, max=24)
         ),
     }
 )

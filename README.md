@@ -42,7 +42,7 @@ During setup, you'll need to provide:
 - **Password**: Your Playmetrics account password
 - **Role ID**: Your Playmetrics role ID (found in the app)
 - **Days to look ahead**: Number of days to fetch events for (default: 7)
-- **Refresh interval**: Hours between updates (default: 6)
+- **Update interval (hours)**: Hours between automatic updates (default: 6, range: 1-24)
 
 ### Finding Your Role ID
 
@@ -69,6 +69,12 @@ The sensor provides these attributes:
 - `event_count`: Number of upcoming events
 - `future_days`: Days being looked ahead
 - `last_update`: Timestamp of last successful update
+
+### Update Behavior
+
+- **On Home Assistant startup/reboot**: Fresh data is fetched immediately from the Playmetrics API
+- **Automatic updates**: Data refreshes every X hours based on your configured update interval
+- **Entity persistence**: Sensor state and attributes persist through reboots
 
 ### Event Format
 

@@ -11,10 +11,10 @@ from homeassistant.core import HomeAssistant
 from .api import PlaymetricsApiClient
 from .const import (
     CONF_FUTURE_DAYS,
-    CONF_REFRESH_HOUR,
     CONF_ROLE_ID,
+    CONF_UPDATE_INTERVAL_HOURS,
     DEFAULT_FUTURE_DAYS,
-    DEFAULT_SCAN_INTERVAL_HOURS,
+    DEFAULT_UPDATE_INTERVAL_HOURS,
     DOMAIN,
 )
 from .coordinator import PlaymetricsDataUpdateCoordinator
@@ -37,10 +37,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     # Get configuration
     future_days = entry.data.get(CONF_FUTURE_DAYS, DEFAULT_FUTURE_DAYS)
-    refresh_hour = entry.data.get(CONF_REFRESH_HOUR, DEFAULT_SCAN_INTERVAL_HOURS)
+    update_interval_hours = entry.data.get(
+        CONF_UPDATE_INTERVAL_HOURS, DEFAULT_UPDATE_INTERVAL_HOURS
+    )
 
-    # Create update coordinator with scan interval based on refresh hour
-    update_interval = timedelta(hours=refresh_hour)
+    # Create update coordinator with configured update interval
+    update_interval = timedelta(hours=update_interval_hours)
     coordinator = PlaymetricsDataUpdateCoordinator(
         hass,
         client,

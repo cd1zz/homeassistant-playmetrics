@@ -9,7 +9,7 @@
           "password": "Password",
           "role_id": "Role ID",
           "future_days": "Days to look ahead",
-          "refresh_hour": "Refresh interval (hours)"
+          "update_interval_hours": "Update interval (hours)"
         }
       }
     },
