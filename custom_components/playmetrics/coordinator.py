@@ -55,17 +55,20 @@ class PlaymetricsDataUpdateCoordinator(DataUpdateCoordinator):
                     if not start_str:
                         continue
 
-                    # Parse datetime strings
-                    start_dt = dt_util.parse_datetime(start_str)
-                    end_dt = dt_util.parse_datetime(end_str) if end_str else None
+                    # Parse datetime strings (API returns ISO format with timezone)
+                    try:
+                        start_dt = datetime.fromisoformat(start_str)
+                        end_dt = datetime.fromisoformat(end_str) if end_str else None
+                    except (ValueError, TypeError):
+                        _LOGGER.warning("Failed to parse datetime: %s", start_str)
+                        continue
 
                     if start_dt is None:
                         continue
 
-                    # Make timezone aware if needed
-                    if start_dt.tzinfo is None:
-                        start_dt = dt_util.as_local(start_dt)
-                    if end_dt and end_dt.tzinfo is None:
+                    # Convert to local timezone
+                    start_dt = dt_util.as_local(start_dt)
+                    if end_dt:
                         end_dt = dt_util.as_local(end_dt)
 
                     # Filter events within the date range
