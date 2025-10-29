@@ -1,0 +1,24 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configure Playmetrics",
+        "description": "Enter your Playmetrics credentials",
+        "data": {
+          "email": "Email",
+          "password": "Password",
+          "role_id": "Role ID",
+          "future_days": "Days to look ahead",
+          "refresh_hour": "Refresh interval (hours)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to Playmetrics. Please check your credentials.",
+      "unknown": "Unexpected error occurred"
+    },
+    "abort": {
+      "already_configured": "This account is already configured"
+    }
+  }
+}
