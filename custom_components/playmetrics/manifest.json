@@ -1,11 +1,11 @@
 {
   "domain": "playmetrics",
   "name": "Playmetrics",
-  "codeowners": ["@yourusername"],
+  "codeowners": ["@cd1zz"],
   "config_flow": true,
-  "documentation": "https://github.com/yourusername/homeassistant-playmetrics",
+  "documentation": "https://github.com/cd1zz/homeassistant-playmetrics",
   "iot_class": "cloud_polling",
-  "issue_tracker": "https://github.com/yourusername/homeassistant-playmetrics/issues",
+  "issue_tracker": "https://github.com/cd1zz/homeassistant-playmetrics/issues",
   "requirements": ["requests>=2.31.0"],
-  "version": "1.0.0"
+  "version": "1.1.0"
 }

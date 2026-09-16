@@ -125,6 +125,16 @@ content: |
 - Ensure your Role ID is valid
 - Check that you can log in to Playmetrics web app
 
+### "API key expired" / "API_KEY_INVALID"
+
+Playmetrics signs users in through Firebase using a web API key embedded in
+their web app, and they rotate that key from time to time (the original key
+expired on 2026-09-15). Since v1.1.0 the integration handles this
+automatically: when Google rejects the key, the client fetches the current key
+from the Playmetrics web app's config bundle and retries. If you still see this
+error, check that Home Assistant can reach `https://app.playmetrics.com/`, then
+open an issue with the log output.
+
 ### No Events Showing
 
 - Verify you have events scheduled in Playmetrics
