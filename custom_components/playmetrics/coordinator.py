@@ -74,19 +74,21 @@ class PlaymetricsDataUpdateCoordinator(DataUpdateCoordinator):
                     # Filter events within the date range
                     if now <= start_dt <= future_date:
                         title = evt.get("summary", "Event")
-                        details = evt.get("details", {})
+                        # The API can send an explicit null for details / field
+                        details = evt.get("details") or {}
+                        field = details.get("field") or {}
 
                         # Get location based on event type
                         if evt.get("type") == "Practice":
                             # For practices, try description first, then field display_name
-                            location = details.get("description") or details.get(
-                                "field", {}
-                            ).get("display_name", "TBD")
+                            location = details.get("description") or field.get(
+                                "display_name", "TBD"
+                            )
                         else:
                             # For games and other events, use location or field display_name
-                            location = details.get("location") or details.get(
-                                "field", {}
-                            ).get("display_name", "TBD")
+                            location = details.get("location") or field.get(
+                                "display_name", "TBD"
+                            )
 
                         cancelled = details.get("canceled_at") is not None
 

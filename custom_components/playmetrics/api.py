@@ -32,6 +32,10 @@ class PlaymetricsAuthError(PlaymetricsApiError):
     """Exception for authentication errors."""
 
 
+class PlaymetricsConnectionError(PlaymetricsApiError):
+    """Exception for transport errors (DNS, timeout, connection refused)."""
+
+
 class PlaymetricsApiClient:
     """Playmetrics API Client."""
 
@@ -170,8 +174,11 @@ class PlaymetricsApiClient:
             self.token = resp.json()["idToken"]
             _LOGGER.debug("Authentication successful")
         except requests.exceptions.RequestException as err:
-            _LOGGER.error("Authentication failed: %s", err)
-            raise PlaymetricsAuthError(f"Authentication failed: {err}") from err
+            # A network problem is not a credential problem.
+            _LOGGER.error("Could not reach the authentication service: %s", err)
+            raise PlaymetricsConnectionError(
+                f"Could not reach the authentication service: {err}"
+            ) from err
         except (ValueError, KeyError) as err:
             _LOGGER.error("Unexpected authentication response: %s", err)
             raise PlaymetricsAuthError("Unexpected authentication response") from err
