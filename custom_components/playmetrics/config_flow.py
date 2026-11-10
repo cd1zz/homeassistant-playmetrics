@@ -12,7 +12,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers import config_validation as cv
 
-from .api import PlaymetricsApiClient, PlaymetricsApiError
+from .api import PlaymetricsApiClient, PlaymetricsApiError, PlaymetricsAuthError
 from .const import (
     CONF_FUTURE_DAYS,
     CONF_ROLE_ID,
@@ -74,6 +74,8 @@ class PlaymetricsConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             try:
                 info = await validate_input(self.hass, user_input)
+            except PlaymetricsAuthError:
+                errors["base"] = "invalid_auth"
             except PlaymetricsApiError:
                 errors["base"] = "cannot_connect"
             except Exception:  # pylint: disable=broad-except
