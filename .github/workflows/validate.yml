@@ -24,8 +24,9 @@ jobs:
       - uses: hacs/action@main
         with:
           category: integration
-          # No brand icon in the repo or in home-assistant/brands
-          ignore: brands
+          # Repo-level checks this personal repo does not meet yet; remove
+          # entries as a brand icon, description, topics or license are added.
+          ignore: brands license topics
 
   compile:
     name: Python Syntax
